@@ -11,9 +11,11 @@ var isCreating = false;
 
 console.log(window.location.pathname);
 var req;
+var data;
 try {
   req = await request.getPage(pathName);
   // Mode display
+  data = req.data;
   isDisplaying = true;
 } catch (err) {
   if (err.response && err.response.status === 500) {
@@ -26,7 +28,7 @@ console.log(req);
 </script>
 
 <template>
-  <Display v-if="isDisplaying" />
+  <Display v-if="isDisplaying" :data="data" />
   <Editor v-if="isEditing" :creation="isCreating" />
   <div v-if="!isDisplaying && !isEditing">Server error :(</div>
 </template>

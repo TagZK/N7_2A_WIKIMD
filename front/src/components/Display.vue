@@ -1,15 +1,16 @@
 <script setup>
-defineProps({
-  pathName: String,
+const props = defineProps({
+  data: JSON,
 });
-
-const pathName = window.location.pathname;
-
-console.log(window.location.pathname);
 </script>
 
 <template>
-  <h1>Display ;)</h1>
+  <div v-if="props.data">
+    <div>{{ props.data.content }}</div>
+    <p>Updated at : {{ props.data.updated_at }}</p>
+    <p>Created at : {{ props.data.created_at }}</p>
+  </div>
+  <h2 v-if="!props.data">Loading</h2>
 </template>
 
 <style scoped>
