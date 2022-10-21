@@ -25,6 +25,17 @@ try {
   }
 }
 console.log(req);
+
+const makeEdition = () => {
+  console.log("edition");
+  isDisplaying = false;
+  isEditing = true;
+};
+
+const makeDisplay = () => {
+  isDisplaying = true;
+  isEditing = false;
+};
 </script>
 
 <template>
@@ -32,12 +43,18 @@ console.log(req);
     <h2>All the pages :</h2>
     <ul>
       <li v-for="item of req.data">
-        <a :href="item.id" >{{ item.id }}</a>
+        <a :href="item.id">{{ item.id }}</a>
       </li>
     </ul>
   </div>
-  <Display v-if="!isNoPagesAsked && isDisplaying" :data="data" />
-  <Editor v-if="!isNoPagesAsked && isEditing" :creation="isCreating" />
+  <div v-if="!isNoPagesAsked && isDisplaying">
+    <button :onclick="makeEdition">Edit</button>
+    <Display :data="data" />
+  </div>
+  <div v-if="!isNoPagesAsked && isEditing">
+    <!-- <button v-if="!isCreating" :onclick="makeDisplay">Display</button> -->
+    <Editor :creation="isCreating" />
+  </div>
   <div v-if="!isDisplaying && !isEditing">Server error :(</div>
 </template>
 
