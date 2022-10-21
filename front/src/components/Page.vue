@@ -5,11 +5,11 @@ import Editor from "./Editor.vue";
 
 const request = new Request();
 const pathName = window.location.pathname;
+const isNoPagesAsked = pathName == "/";
 var isDisplaying = false;
 var isEditing = false;
 var isCreating = false;
 
-console.log(window.location.pathname);
 var req;
 var data;
 try {
@@ -28,8 +28,16 @@ console.log(req);
 </script>
 
 <template>
-  <Display v-if="isDisplaying" :data="data" />
-  <Editor v-if="isEditing" :creation="isCreating" />
+  <div v-if="isNoPagesAsked">
+    <h2>All the pages :</h2>
+    <ul>
+      <li v-for="item of req.data">
+        <a :href="item.id" >{{ item.id }}</a>
+      </li>
+    </ul>
+  </div>
+  <Display v-if="!isNoPagesAsked && isDisplaying" :data="data" />
+  <Editor v-if="!isNoPagesAsked && isEditing" :creation="isCreating" />
   <div v-if="!isDisplaying && !isEditing">Server error :(</div>
 </template>
 

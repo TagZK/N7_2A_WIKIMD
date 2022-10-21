@@ -4,7 +4,7 @@ import Page from "./components/Page.vue";
 
 <template>
   <header>
-    <h1>Welcome to our Wiki !</h1>
+    <h1>Welcome to our <a href="/" >Wiki</a> !</h1>
   </header>
   <Suspense>
     <Page />

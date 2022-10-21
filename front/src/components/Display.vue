@@ -1,4 +1,6 @@
 <script setup>
+import { VueShowdown } from "vue-showdown";
+
 const props = defineProps({
   data: JSON,
 });
@@ -6,7 +8,7 @@ const props = defineProps({
 
 <template>
   <div v-if="props.data">
-    <div>{{ props.data.content }}</div>
+    <VueShowdown :markdown="props.data.content" :options="{ emoji: true }" />
     <p>Updated at : {{ props.data.updated_at }}</p>
     <p>Created at : {{ props.data.created_at }}</p>
   </div>
@@ -14,7 +16,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
+h1 {
+  color: red;
 }
 </style>
