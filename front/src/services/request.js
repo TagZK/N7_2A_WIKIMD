@@ -18,6 +18,7 @@ const checkContent = (functionName, content) => {
 
 export class Request {
   async getPage(pathName) {
+    console.log(pathName)
     checkPathName("getPage", pathName);
     return await axios.get(url + pathName);
   }
@@ -28,7 +29,7 @@ export class Request {
     return await axios.post(
       url,
       {
-        path: pathName,
+        id: pathName.slice(1),
         content,
       },
       {

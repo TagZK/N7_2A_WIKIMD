@@ -2,40 +2,68 @@
 import { Request } from "./../services/request.js";
 import Display from "./Display.vue";
 import Editor from "./Editor.vue";
+</script>
 
+<script>
 const request = new Request();
 const pathName = window.location.pathname;
-const isNoPagesAsked = pathName == "/";
-var isDisplaying = false;
-var isEditing = false;
-var isCreating = false;
+
+let isDisplayingTmp = false;
+let isCreatingTmp = false;
+let isEditingTmp = false;;
 
 var req;
-var data;
+var dataFromRequest;
 try {
   req = await request.getPage(pathName);
   // Mode display
-  data = req.data;
-  isDisplaying = true;
+  dataFromRequest = req.data;
+  isDisplayingTmp = true;
 } catch (err) {
   if (err.response && err.response.status === 500) {
     // Mode creation -> edition
-    isCreating = true;
-    isEditing = true;
+    isCreatingTmp = true;
+    isEditingTmp = true;
   }
 }
+
 console.log(req);
 
-const makeEdition = () => {
-  console.log("edition");
-  isDisplaying = false;
-  isEditing = true;
-};
+export default{
+  data(){
+    return{
+      isDisplaying: isDisplayingTmp,
+      isCreating: isCreatingTmp,
+      isEditing: isEditingTmp,
+      isNoPagesAsked: pathName == "/",
+      dataFromRequest
+    }
+  },
+  methods:{
+    //data = data d'une requête
+    makeDisplay(data){
+      console.log("display");
+      if(data) this.dataFromRequest = data;
+      this.isDisplaying = true;
+      this.isEditing = false;
+      this.isCreating = false;
+      console.log(data)
+    },
+    //data = data d'une requête
+    makeEdition(data) {
+      console.log("edition");
+      if(data) {
+        this.dataFromRequest = data;
+        console.log("data passée ?")
+      }
+      this.isDisplaying = false;
+      this.isEditing = true;
+      console.log(data)
+    }
+  }
+}
 
-const makeDisplay = () => {
-  isDisplaying = true;
-  isEditing = false;
-};
+
 </script>
 
 <template>
@@ -48,12 +76,12 @@ const makeDisplay = () => {
     </ul>
   </div>
   <div v-if="!isNoPagesAsked && isDisplaying">
-    <button :onclick="makeEdition">Edit</button>
-    <Display :data="data" />
+    <button @click="makeEdition()">Edit</button>
+    <Display :data="dataFromRequest" />
   </div>
   <div v-if="!isNoPagesAsked && isEditing">
     <!-- <button v-if="!isCreating" :onclick="makeDisplay">Display</button> -->
-    <Editor :creation="isCreating" />
+    <Editor :creation="isCreating" :display="makeDisplay" :dataIn="dataFromRequest" />
   </div>
   <div v-if="!isDisplaying && !isEditing">Server error :(</div>
 </template>

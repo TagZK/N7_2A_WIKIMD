@@ -1,15 +1,48 @@
 <script setup>
-defineProps({
-    creation: Boolean,
+console.log("setup")
+const props = defineProps({
+  creation: Boolean,
+  display: Function,
+  dataIn: JSON
 });
+</script>
 
+<script>
+console.log("script")
 const pathName = window.location.pathname;
+import {Request} from '../services/request.js';
+var textEditor = "# Nouveau document\n ----";
 
-console.log(window.location.pathname);
+var request = new Request();
+export default {
+  data() {
+    return {
+      text: this.creation ? textEditor : this.dataIn.content,
+      change: (text) => {this.textEditor = text; console.log(this.textEditor);},
+      save: async () => {
+        console.log(this.textEditor);
+        try{
+          const req = this.creation ? 
+            await request.createPage(pathName, this.textEditor)
+            : await request.editPage(pathName, this.textEditor);
+          this.display(req.data);
+        } catch(e){
+          console.error(e);
+        }
+      }
+    };
+  },
+};
 </script>
 
 <template>
-  <h1>Editor :)</h1>
+  <div style="display : flex; justify-content: right;">
+    <button style="background-color: green; font-weight: 600; margin: 5px;" @click="save()">
+      <font-awesome-icon icon="fa-solid fa-floppy-disk" style="margin-right: 5px;"></font-awesome-icon>
+      Sauvegarder
+    </button>
+  </div>
+  <v-md-editor v-model="text" height="60vh" @change="change(text)"></v-md-editor>
 </template>
 
 <style scoped>
