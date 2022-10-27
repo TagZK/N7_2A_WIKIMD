@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       text: this.creation ? textEditor : this.dataIn.content,
-      change: (text) => {this.textEditor = text; console.log(this.textEditor);},
+      change: (text) => {this.textEditor = text;},
       save: async () => {
         try{
           const req = this.creation ? 
