@@ -27,8 +27,6 @@ try {
   }
 }
 
-console.log(req);
-
 export default{
   data(){
     return{
@@ -42,23 +40,16 @@ export default{
   methods:{
     //data = data d'une requête
     makeDisplay(data){
-      console.log("display");
       if(data) this.dataFromRequest = data;
       this.isDisplaying = true;
       this.isEditing = false;
       this.isCreating = false;
-      console.log(data)
     },
     //data = data d'une requête
     makeEdition(data) {
-      console.log("edition");
-      if(data) {
-        this.dataFromRequest = data;
-        console.log("data passée ?")
-      }
+      if(data) this.dataFromRequest = data;
       this.isDisplaying = false;
       this.isEditing = true;
-      console.log(data)
     }
   }
 }
@@ -76,7 +67,10 @@ export default{
     </ul>
   </div>
   <div v-if="!isNoPagesAsked && isDisplaying">
-    <button @click="makeEdition()">Edit</button>
+    <button @click="makeEdition()" style="background-color:blue; font-weight:600;">
+      <font-awesome-icon icon="fa-solid fa-pen" style="margin-right: 5px;"></font-awesome-icon>
+      Edit
+    </button>
     <Display :data="dataFromRequest" />
   </div>
   <div v-if="!isNoPagesAsked && isEditing">

@@ -1,5 +1,4 @@
 <script setup>
-console.log("setup")
 const props = defineProps({
   creation: Boolean,
   display: Function,
@@ -8,7 +7,6 @@ const props = defineProps({
 </script>
 
 <script>
-console.log("script")
 const pathName = window.location.pathname;
 import {Request} from '../services/request.js';
 var textEditor = "# Nouveau document\n ----";
@@ -20,7 +18,6 @@ export default {
       text: this.creation ? textEditor : this.dataIn.content,
       change: (text) => {this.textEditor = text; console.log(this.textEditor);},
       save: async () => {
-        console.log(this.textEditor);
         try{
           const req = this.creation ? 
             await request.createPage(pathName, this.textEditor)

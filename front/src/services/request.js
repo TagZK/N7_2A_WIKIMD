@@ -18,7 +18,6 @@ const checkContent = (functionName, content) => {
 
 export class Request {
   async getPage(pathName) {
-    console.log(pathName)
     checkPathName("getPage", pathName);
     return await axios.get(url + pathName);
   }
@@ -31,6 +30,8 @@ export class Request {
       {
         id: pathName.slice(1),
         content,
+        created_at: new Date().toLocaleString(),
+        updated_at: new Date().toLocaleString()
       },
       {
         headers,
@@ -46,7 +47,7 @@ export class Request {
       url + pathName,
       {
         content,
-        updated_at: new Date().getTime(),
+        updated_at: new Date().toLocaleString()
       },
       {
         headers,
