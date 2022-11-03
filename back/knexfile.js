@@ -7,7 +7,7 @@ module.exports = {
   development: {
     client: "sqlite3",
     connection: {
-      filename: "./gallery.sqlite3",
+      filename: "./wikimd.sqlite3",
     },
     useNullAsDefault: true,
   },
