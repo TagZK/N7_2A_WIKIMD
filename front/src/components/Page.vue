@@ -20,7 +20,7 @@ try {
   dataFromRequest = req.data;
   isDisplayingTmp = true;
 } catch (err) {
-  if (err.response && err.response.status === 500) {
+  if (err.response && err.response.status === 404) {
     // Mode creation -> edition
     isCreatingTmp = true;
     isEditingTmp = true;
@@ -62,7 +62,7 @@ export default{
     <h2>All the pages :</h2>
     <ul>
       <li v-for="item of req.data">
-        <a :href="item.id">{{ item.id }}</a>
+        <a :href="item.id">{{ item.id.replace("°°", "/") }}</a>
       </li>
     </ul>
   </div>

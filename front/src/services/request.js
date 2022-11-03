@@ -19,12 +19,14 @@ const checkContent = (functionName, content) => {
 export class Request {
   async getPage(pathName) {
     checkPathName("getPage", pathName);
+    pathName.replace("/","°°");
     return await axios.get(url + pathName);
   }
 
   async createPage(pathName, content) {
     checkPathName("createPage", pathName);
     checkContent("createPage", content);
+    pathName.replace("/","°°");
     return await axios.post(
       url,
       {
@@ -42,7 +44,7 @@ export class Request {
   async editPage(pathName, content) {
     checkPathName("editPage", pathName);
     checkContent("editPage", content);
-
+    pathName.replace("/","°°");
     return await axios.patch(
       url + pathName,
       {
