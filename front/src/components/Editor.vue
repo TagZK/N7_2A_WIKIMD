@@ -39,7 +39,15 @@ export default {
       Sauvegarder
     </button>
   </div>
-  <v-md-editor v-model="text" height="60vh" @change="change(text)"></v-md-editor>
+  <v-md-editor 
+    v-model="text" 
+    mode="edit" 
+    left-toolbar="h bold italic strikethrough quote | ul ol table hr | link image code"
+    right-toolbar="preview"
+    height="60vh"
+    @change="change(text)"
+  >
+  </v-md-editor>
 </template>
 
 <style scoped>
