@@ -21,7 +21,7 @@ export default {
         try{
           const req = this.creation ? 
             await request.createPage(pathName, this.textEditor)
-            : await request.editPage(pathName, this.textEditor);
+            : await request.editPage(this.dataIn.id, pathName, this.textEditor);
           this.display(req.data);
         } catch(e){
           console.error(e);

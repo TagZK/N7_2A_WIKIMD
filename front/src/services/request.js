@@ -19,18 +19,17 @@ const checkContent = (functionName, content) => {
 export class Request {
   async getPage(pathName) {
     checkPathName("getPage", pathName);
-    pathName.replace("/","°°");
-    return await axios.get(url + pathName);
+    console.log(pathName)
+    return await axios.get(url + (pathName == "/" ? "" : "?pathName=" + pathName) );
   }
 
   async createPage(pathName, content) {
     checkPathName("createPage", pathName);
     checkContent("createPage", content);
-    pathName.replace("/","°°");
     return await axios.post(
       url,
       {
-        id: pathName.slice(1),
+        pathName,
         content,
         created_at: new Date().toLocaleString(),
         updated_at: new Date().toLocaleString()
@@ -41,13 +40,13 @@ export class Request {
     );
   }
 
-  async editPage(pathName, content) {
+  async editPage(id, pathName, content) {
     checkPathName("editPage", pathName);
     checkContent("editPage", content);
-    pathName.replace("/","°°");
     return await axios.patch(
-      url + pathName,
+      url + "/" + id,
       {
+        pathName,
         content,
         updated_at: new Date().toLocaleString()
       },

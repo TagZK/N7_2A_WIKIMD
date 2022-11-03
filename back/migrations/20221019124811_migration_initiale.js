@@ -5,7 +5,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable("pages", (table) => {
     // The id field is required by SQLLite... id = pathName
-    table.string("id").primary();
+    table.increments('id');
+    table.string("pathName").unique().notNullable();
     table.text("content").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());

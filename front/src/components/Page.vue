@@ -12,19 +12,17 @@ let isDisplayingTmp = false;
 let isCreatingTmp = false;
 let isEditingTmp = false;;
 
-var req;
-var dataFromRequest;
-try {
-  req = await request.getPage(pathName);
+var req = await request.getPage(pathName);
+console.log(req)
+var dataFromRequest = req.data[0];
+if(req.data.length == 0){
+  // Mode creation -> edition
+  isCreatingTmp = true;
+  isEditingTmp = true;
+  console.log('in editing')
+} else {
   // Mode display
-  dataFromRequest = req.data;
   isDisplayingTmp = true;
-} catch (err) {
-  if (err.response && err.response.status === 404) {
-    // Mode creation -> edition
-    isCreatingTmp = true;
-    isEditingTmp = true;
-  }
 }
 
 export default{
@@ -62,7 +60,7 @@ export default{
     <h2>All the pages :</h2>
     <ul>
       <li v-for="item of req.data">
-        <a :href="item.id">{{ item.id.replace("°°", "/") }}</a>
+        <a :href="item.pathName">{{ item.pathName }}</a>
       </li>
     </ul>
   </div>
