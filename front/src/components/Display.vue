@@ -27,8 +27,13 @@ export default {
 <template>
   <div v-if="this.dataState">
     <VueShowdown :markdown="this.dataState.content" :options="{ emoji: true }" />
-    <p>Updated at : {{ this.dataState.updated_at }}</p>
-    <p>Created at : {{ this.dataState.created_at }}</p>
+    <div style="text-align:center; padding-top: 5vh;">
+      Updated at : {{ this.dataState.updated_at }} 
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      Created at : {{ this.dataState.created_at }}
+    </div>
+    <div></div>
   </div>
   <h2 v-if="!this.dataState">Loading</h2>
 </template>

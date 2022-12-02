@@ -41,7 +41,7 @@ export default {
 
 <template>
   <div style="display : flex; justify-content: right;">
-    <button style="background-color: green; font-weight: 600; margin: 5px;" @click="save()">
+    <button style="background-color: #FFCC70; font-weight: 600; margin: 5px;" @click="save()">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" style="margin-right: 5px;"></font-awesome-icon>
       Sauvegarder
     </button>
@@ -49,7 +49,7 @@ export default {
   <v-md-editor 
     v-model="text" 
     mode="edit" 
-    left-toolbar="h bold italic strikethrough quote | ul ol table hr | link image code"
+    left-toolbar="h bold italic quote | ul ol table hr | link image code"
     right-toolbar="preview"
     height="60vh"
     @change="change(text)"

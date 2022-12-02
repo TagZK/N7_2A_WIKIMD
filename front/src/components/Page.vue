@@ -84,16 +84,15 @@ export default{
 </script>
 
 <template>
-  <div v-if="isNoPagesAsked">
-    <h2>All the pages :</h2>
-    <ul>
-      <li v-for="item of this.reqState.data">
-        <a :href="item.pathName">{{ item.pathName }}</a>
-      </li>
-    </ul>
+  <div v-if="isNoPagesAsked" style="text-align:center">
+    <h1>Welcome to our Wiki !</h1>
+    <h2>All the pages created :</h2>
+      <div v-for="item of this.reqState.data">
+        <a :href="item.pathName" style="color:#C850C0; font-weight: 600;">{{ item.pathName }}</a>
+      </div>
   </div>
   <div v-if="!isNoPagesAsked && isDisplaying">
-    <button @click="makeEdition()" style="background-color:blue; font-weight:600;">
+    <button @click="makeEdition()" style="background-color:#4158D0; font-weight:600;">
       <font-awesome-icon icon="fa-solid fa-pen" style="margin-right: 5px;"></font-awesome-icon>
       Edit
     </button>
