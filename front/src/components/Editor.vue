@@ -2,7 +2,9 @@
 const props = defineProps({
   creation: Boolean,
   display: Function,
-  dataIn: JSON
+  displayHome : Function,
+  dataIn: JSON,
+  socket : Object
 });
 </script>
 
@@ -22,7 +24,12 @@ export default {
           const req = this.creation ? 
             await request.createPage(pathName, this.textEditor)
             : await request.editPage(this.dataIn.id, pathName, this.textEditor);
-          this.display(req.data);
+          if (!this.creation){
+            this.socket.emit('patch',req.data);
+          } else {
+            this.socket.emit('post', req.data);
+          }
+          this.display();
         } catch(e){
           console.error(e);
         }

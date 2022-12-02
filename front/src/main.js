@@ -29,9 +29,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 /* import specific icons */
-import { faFloppyDisk, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faFloppyDisk, faPen);
+library.add(faFloppyDisk, faPen, faTrashCan);
 
 const app = createApp(App);
 

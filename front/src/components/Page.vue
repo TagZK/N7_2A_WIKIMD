@@ -5,6 +5,9 @@ import Editor from "./Editor.vue";
 </script>
 
 <script>
+//Socket
+import { onBeforeUnmount, onMounted } from "vue";
+
 const request = new Request();
 const pathName = window.location.pathname;
 
@@ -13,26 +16,51 @@ let isCreatingTmp = false;
 let isEditingTmp = false;;
 
 var req = await request.getPage(pathName);
-console.log(req)
 var dataFromRequest = req.data[0];
 if(req.data.length == 0){
   // Mode creation -> edition
   isCreatingTmp = true;
   isEditingTmp = true;
-  console.log('in editing')
 } else {
   // Mode display
   isDisplayingTmp = true;
 }
 
+import io from 'socket.io-client';
+let socket = io("http://localhost:3030")
+
 export default{
+  setup(){
+    onMounted(() => {
+      console.log(test)
+    }),
+    onBeforeUnmount(() => {
+      socket.disconnect();
+    })
+  },
   data(){
     return{
       isDisplaying: isDisplayingTmp,
       isCreating: isCreatingTmp,
       isEditing: isEditingTmp,
       isNoPagesAsked: pathName == "/",
-      dataFromRequest
+      dataFromRequest,
+      reqState : req,
+      socket : socket.on("patched", (item) =>{
+        if(this.dataFromRequest.id == item.id){
+          this.dataFromRequest = item;
+        }
+      }).on("posted", (item) => {
+        if(pathName == "/"){
+          console.log('add')
+          console.log(item)
+          this.reqState.data.push(item);
+        } else{
+          this.dataFromRequest = item;
+        }
+      }).on("posted", (item) => {
+        
+      })
     }
   },
   methods:{
@@ -59,7 +87,7 @@ export default{
   <div v-if="isNoPagesAsked">
     <h2>All the pages :</h2>
     <ul>
-      <li v-for="item of req.data">
+      <li v-for="item of this.reqState.data">
         <a :href="item.pathName">{{ item.pathName }}</a>
       </li>
     </ul>
@@ -69,11 +97,11 @@ export default{
       <font-awesome-icon icon="fa-solid fa-pen" style="margin-right: 5px;"></font-awesome-icon>
       Edit
     </button>
-    <Display :data="dataFromRequest" />
+    <Display :data="dataFromRequest" :socket="socket"/>
   </div>
   <div v-if="!isNoPagesAsked && isEditing">
     <!-- <button v-if="!isCreating" :onclick="makeDisplay">Display</button> -->
-    <Editor :creation="isCreating" :display="makeDisplay" :dataIn="dataFromRequest" />
+    <Editor :creation="isCreating" :display="makeDisplay" :dataIn="dataFromRequest" :socket="socket"/>
   </div>
   <div v-if="!isDisplaying && !isEditing">Server error :(</div>
 </template>

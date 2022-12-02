@@ -19,7 +19,6 @@ const checkContent = (functionName, content) => {
 export class Request {
   async getPage(pathName) {
     checkPathName("getPage", pathName);
-    console.log(pathName)
     return await axios.get(url + (pathName == "/" ? "" : "?pathName=" + pathName) );
   }
 
