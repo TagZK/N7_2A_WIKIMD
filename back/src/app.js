@@ -11,7 +11,8 @@ const app = express(feathers());
 const server = require('http').Server(app)
 const io = require('socket.io')(server, {
     cors: {
-      origin: "http://localhost:3000",
+      //adapté à windows et linux et en cas de lancement du front sur un autre port
+      origins:['http://127.0.0.1:*', 'http://localhost:*'],
       methods: ["GET", "POST", "PATCH"]
     }
 });
