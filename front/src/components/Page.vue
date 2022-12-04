@@ -100,7 +100,6 @@ export default{
     <Display :data="dataFromRequest" :socket="socket"/>
   </div>
   <div v-if="!isNoPagesAsked && isEditing">
-    <!-- <button v-if="!isCreating" :onclick="makeDisplay">Display</button> -->
     <Editor :creation="isCreating" :display="makeDisplay" :dataIn="dataFromRequest" :socket="socket"/>
   </div>
   <div v-if="!isDisplaying && !isEditing">Server error :(</div>
