@@ -31,7 +31,7 @@ export default {
       :markdown="this.dataState.content"
       :options="{ emoji: true }"
     />
-    <div style="text-align: center; padding-top: 5vh">
+    <div class="hide-print" style="text-align: center; padding-top: 5vh">
       Updated at : {{ this.dataState.updated_at }} &nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp; Created at : {{ this.dataState.created_at }}
     </div>
