@@ -87,6 +87,7 @@ export default{
   <div v-if="isNoPagesAsked" style="text-align:center">
     <h1>Welcome to our Wiki !</h1>
     <h2>All the pages created :</h2>
+      <p v-if="(this.reqState.data.length === 0)" >No pages created. Make the first one by adding a path to the url !</p>
       <div v-for="item of this.reqState.data">
         <a :href="item.pathName" style="color:#C850C0; font-weight: 600;">{{ item.pathName }}</a>
       </div>
