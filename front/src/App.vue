@@ -11,9 +11,7 @@ import Page from "./components/Page.vue";
     </Suspense>
   </div>
 
-  <footer>
-    A project made by Julien DAVIDOU and Emrick PESCE. :)
-  </footer>
+  <footer>A project made by Julien DAVIDOU and Emrick PESCE. :)</footer>
 </template>
 
 <style scoped></style>
